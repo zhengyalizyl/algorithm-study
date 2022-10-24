@@ -1,5 +1,5 @@
 // 给你单链表的头节点 head ，请你反转链表，并返回反转后的链表。
-
+// https://leetcode.cn/problems/reverse-linked-list/
 /**
  * Definition for singly-linked list.
  * function ListNode(val, next) {
@@ -38,6 +38,17 @@ var reverseList = function(head) {
     //1,2,3  5, 4
     //1,2   5,4,3
     //1  5,4,3,2
+    head.next = tail.next;
+    tail.next = head;
+    return p
+};
+
+
+//方法:反转第n个节点
+var reverseList = function(head, n) {
+    if (n === 1) { return head }
+    let tail = head.next;
+    let p = reverseList(head.next, n - 1);
     head.next = tail.next;
     tail.next = head;
     return p
