@@ -29,7 +29,6 @@ var reverseBetween = function(head, left, right) {
     let p = res;
     const cnt = right - left + 1;
     while (left = left - 1) {
-
         p = p.next;
     }
     p.next = reverse(p.next, cnt);
