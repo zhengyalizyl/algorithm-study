@@ -14,3 +14,57 @@
 
 
 // 链接：https://leetcode.cn/problems/copy-list-with-random-pointer
+
+
+/**
+ * // Definition for a Node.
+ * function Node(val, next, random) {
+ *    this.val = val;
+ *    this.next = next;
+ *    this.random = random;
+ * };
+ */
+
+/**
+ * @param {Node} head
+ * @return {Node}
+ */
+var copyRandomList = function(head) {
+    if (!head) { return head; }
+    //遇到有2个指针的问题
+    //首先，先复制这个指针
+    let p = head;
+    let q;
+    while (p) {
+        q = new Node(p.val);
+        q.next = p.next;
+        q.val = p.val;
+        q.random = p.random;
+        p.next = q; //需要把链表的指向改一下
+        p = q.next; //p要移动
+    }
+
+    //其次，将复制的那个点的指针指向正确的位置，比如1‘->2,改成1' ->2'
+    p = head.next;
+    while (p) {
+        if (p.random) {
+            p.random = p.random.next;
+        }
+        p = p.next;
+        if (p) {
+            p = p.next;
+        }
+    }
+
+    //第三步，将其复制的链表与原本被复制的链表断开
+    let copyHead = head.next;
+    p = head;
+    while (p) {
+        q = p.next;
+        p.next = p.next.next;
+        if (p.next) { q.next = p.next.next };
+        p = p.next;
+    }
+
+    return copyHead
+};
