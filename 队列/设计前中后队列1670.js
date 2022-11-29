@@ -16,3 +16,113 @@
 
 
 // 链接：https://leetcode.cn/problems/design-front-middle-back-queue
+
+var FrontMiddleBackQueue = function() {
+    //设置2个数组，并且约定后面的那个数组一定要大于或者等于前面的那个数组,并且仅仅大于1
+    this.fontArr = [];
+    this.endArr = [];
+};
+
+FrontMiddleBackQueue.prototype.changePostion = function(val) {
+    if (this.endArr.length > this.fontArr.length + 1) {
+        let temp = this.endArr[0];
+        this.endArr.splice(0, 1);
+        this.fontArr.push(temp);
+    } else if (this.endArr.length < this.fontArr.length) {
+        let temp = this.fontArr[this.fontArr.length - 1];
+        this.fontArr.splice(this.fontArr.length - 1, 1);
+        this.endArr.unshift(temp);
+    }
+    console.log(this.fontArr, this.endArr)
+};
+
+FrontMiddleBackQueue.prototype.isEmpty = function(val) {
+    return val.length == 0;
+};
+
+
+/** 
+ * @param {number} val
+ * @return {void}
+ */
+FrontMiddleBackQueue.prototype.pushFront = function(val) {
+    this.fontArr.unshift(val);
+    this.changePostion();
+
+};
+
+/** 
+ * @param {number} val
+ * @return {void}
+ */
+FrontMiddleBackQueue.prototype.pushMiddle = function(val) {
+    this.fontArr.push(val);
+    this.changePostion();
+};
+
+/** 
+ * @param {number} val
+ * @return {void}
+ */
+FrontMiddleBackQueue.prototype.pushBack = function(val) {
+    this.endArr.push(val);
+    this.changePostion();
+};
+
+/**
+ * @return {number}
+ */
+FrontMiddleBackQueue.prototype.popFront = function() {
+    if (this.isEmpty(this.endArr)) {
+        return -1
+    }
+    let result
+    if (this.isEmpty(this.fontArr)) {
+        result = this.endArr.splice(0, 1);
+    } else {
+        result = this.fontArr.splice(0, 1);
+    }
+
+    this.changePostion();
+    return result;
+};
+
+/**
+ * @return {number}
+ */
+FrontMiddleBackQueue.prototype.popMiddle = function() {
+    if (this.isEmpty(this.endArr)) {
+        return -1
+    }
+    let result = 0;
+    if (this.fontArr.length == this.endArr.length) {
+        result = this.fontArr.pop();
+    } else {
+        result = this.endArr.splice(0, 1)
+    }
+    this.changePostion();
+    return result;
+};
+
+/**
+ * @return {number}
+ */
+FrontMiddleBackQueue.prototype.popBack = function() {
+    if (this.isEmpty(this.endArr)) {
+        return -1
+    }
+    let result = this.endArr.pop();
+    this.changePostion();
+    return result;
+};
+
+/**
+ * Your FrontMiddleBackQueue object will be instantiated and called as such:
+ * var obj = new FrontMiddleBackQueue()
+ * obj.pushFront(val)
+ * obj.pushMiddle(val)
+ * obj.pushBack(val)
+ * var param_4 = obj.popFront()
+ * var param_5 = obj.popMiddle()
+ * var param_6 = obj.popBack()
+ */
