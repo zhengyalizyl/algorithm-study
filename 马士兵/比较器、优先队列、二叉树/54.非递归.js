@@ -38,7 +38,7 @@ function mergeSort2(arr){
      }
 
     //  step*=2;//这里可能溢出
-    if(step>(n/2)){ //这里保证了不会被溢出
+    if(step>Math.floor((n/2))){ //这里保证了不会被溢出
       break;
     }else{
       step*=2;
