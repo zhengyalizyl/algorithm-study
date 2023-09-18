@@ -6,8 +6,7 @@ function mergeSort2(arr){
    let step=1;
    let n=arr.length;
    while(step<n){
-
-     let i=0;
+    let l=0;
      while(l<n){
       let m=0;
       if(n-1>=step){
@@ -39,7 +38,7 @@ function mergeSort2(arr){
      }
 
     //  step*=2;//这里可能溢出
-    if(step>=(n/2)){ //这里保证了不会被溢出
+    if(step>(n/2)){ //这里保证了不会被溢出
       break;
     }else{
       step*=2;
