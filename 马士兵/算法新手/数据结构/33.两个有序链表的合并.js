@@ -70,7 +70,7 @@ var mergeTwoLists = function(list1, list2) {
             current.next =bigHead;
             bigHead=bigHead.next;
         }
-        current =pre.next;
+        current =current.next;
     }
     current.next =smallHead!=null?smallHead:bigHead;
     return  vnode.next;
