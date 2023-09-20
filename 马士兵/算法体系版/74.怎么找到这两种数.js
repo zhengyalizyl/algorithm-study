@@ -2,20 +2,20 @@
 //假设出现奇数的两种数分别是a和b
 //第一步,ans =0;
 //第二步,将数组所有的都异或得到ans =a^b;
-//第三步，因为a!=b,必然ans！=0，通过ans^(~ans+1)找到ans最右侧不为1的，这样就可以把a和b分别在不同阵营中
-//第四步，可以将属于a的阵营的中，抽取出a，。因为a是奇书
+//第三步，因为a!=b,必然ans！=0，必然会有1，通过ans^(~ans+1)找到ans最右侧不为1的，通过与数组的每一位进行arr[i]&(最右侧为1),这样就可以把a和b分别在不同阵营中
+//第四步，可以将属于a的阵营的中，得抽取出a，。因为a是奇数
 //
 
 
 
 //比如[6,10,6,6,4,4,12,12,12,12,3,3];
 //ans= 6^10 =01100;
-//故最右侧的数是2，这里主要是将6和10分别在不同的阵营中
+//故最右侧的数是2，这里通过arr[i]&(最右侧为1的数),主要是将6和10分别在不同的阵营中
 //2上有1的数有6，4，12
 //2上无1的数有10，3
 //现在异或数组中2有1的数6，4，12
-//因为得到6，4，12中4和12是偶数，故此时6被脱离出来了
-//然后6和ans得出10
+//因为得到6，4，12中，ans和6，4，12相与,会把故此时6被脱离出来了
+//然后6和ans异或得出10
 
 // https://leetcode.cn/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-lcof/
 // 剑指 Offer 56 - I. 数组中数字出现的次数
@@ -38,6 +38,24 @@
 // 2 <= nums.length <= 10000
 
 
-function printOddTimesNums(arr){
-  let ans=0;
-}
+var singleNumbers = function(nums) {
+  //第一步,ans =0;
+ let ans =0;
+ //第二步,将数组所有的都异或得到ans =a^b;
+ for(let i=0;i<nums.length;i+=1){
+     ans^= nums[i];
+ }
+//第三步，因为a!=b,必然ans！=0，找到ans最右侧不为1的,这样就可以把a和b分别在不同阵营中
+ let rightOne =ans&(~ans+1);//这里就得到最右侧1
+ let onlyOne =0;//ans'
+  for(let i=0;i<nums.length;i+=1){
+      if((nums[i]&rightOne)!=0){ //将每个数组与最右侧相与，得到最右侧有1的数
+          onlyOne ^=nums[i]; //然后将最右侧有1的数和每个数组进行异或，只有奇数次会被保留下来
+      }
+  }
+  let rest = onlyOne ^ans;
+
+   return [onlyOne,rest]
+  
+
+};
