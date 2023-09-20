@@ -2,10 +2,10 @@
 // n^n=0;
 // a^b=b^a;
 // 一个数组中有一种数出现了奇数次，其它数都出现了偶数次，怎么找到并打印这种数
-let arr=[a,b,c,a,c,...];
-let ans=0;
-ans=ans^arr[0];
-ans=ans^arr[1];
+// let arr=[a,b,c,a,c,...];
+// let ans=0;
+// ans=ans^arr[0];
+// ans=ans^arr[1];
 //...
 //因为n^n=0;
 // 所以最终结果是那个奇数的次数
