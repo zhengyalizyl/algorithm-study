@@ -42,7 +42,5 @@ function process(arr,l,r){
      arr[l+i]=help[i];
    }
 
-
-
  }
 

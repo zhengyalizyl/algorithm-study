@@ -46,3 +46,32 @@ var mergeTwoLists = function(list1, list2) {
   pre.next =smallHead!=null?smallHead:bigHead;
   return head;
 };
+
+
+
+
+//方法二:建一个虚拟节点
+var mergeTwoLists = function(list1, list2) {
+    if(list1===null||list2===null){
+        return list1==null? list2:list1
+    }
+    //可以建立一个虚节点,得到的结果就是虚拟节点的下一位
+   let vnode =new ListNode();
+   let head= list1.val<=list2.val? list1:list2
+   let smallHead =head;
+   let bigHead= head==list1? list2:list1;
+    vnode.next =head;
+    let current=vnode;//current指向的是head的地址
+    while(smallHead!==null&&bigHead!==null){
+        if(smallHead.val<=bigHead.val){
+            current.next =smallHead;
+            smallHead =smallHead.next;
+        }else{
+            current.next =bigHead;
+            bigHead=bigHead.next;
+        }
+        current =pre.next;
+    }
+    current.next =smallHead!=null?smallHead:bigHead;
+    return  vnode.next;
+ };

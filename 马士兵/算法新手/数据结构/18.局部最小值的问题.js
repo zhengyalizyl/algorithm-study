@@ -28,7 +28,7 @@ function oneMinIndex(arr){
    while(leftIndex<=rightIndex){
     let midIndex =leftIndex+ parseInt((rightIndex-leftIndex)/2);
     if(arr[midIndex]<arr[midIndex-1]&&arr[midIndex]>arr[midIndex+1]){
-      and=midIndex;
+      ans=midIndex;
       break;
     }
     if(arr[midIndex]>arr[midIndex-1]){
