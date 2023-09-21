@@ -57,9 +57,9 @@ TwoStackQueue.prototype.poll=function(){
   if(this.stackPop.isEmpty()&&this.stackPush.isEmpty()){
     throw new Error('栈是空的')
   }
-
-  let temp= this.stackPop.pop();
+  //走到这里的时候必然有一个为空
   this.pushToPop();
+  let temp= this.stackPop.pop();
   return temp;
 }
 
@@ -68,6 +68,8 @@ TwoStackQueue.prototype.peek=function(){
   if(this.stackPop.isEmpty()&&this.stackPush.isEmpty()){
     throw new Error('栈是空的')
   }
+   //走到这里的时候必然有一个为空
+  this.pushToPop();
   let temp= this.stackPop.peek();
   return temp;
 }
