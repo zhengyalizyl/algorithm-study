@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Page Title</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+   <script>
+     function getMax(arr){
+      return f(arr,0,arr.length-1)
+     }
+
+     function f(arr,l,r){
+      if(l==r){
+        return arr[l]
+      }
+      let mid= l+((r-l)>>1);
+      let left = f(arr,l,mid);
+      console.log(left,l,mid,'------')
+      let right =f(arr,mid+1,r);
+      console.log('jjjj',mid+1,r)
+      return Math.max(left,right)
+     }
+
+     getMax([5,1,2,6])
+   </script>
+</body>
+</html>
+
+
+
+function f(n){
+   if(n==1){
+    return n
+   }
+  return f(n)+f(n-1)
+}
+//比如n=2;当代码执行到f(n)+f(n-1)这行是，先执行f(n)，就直接不回执行f(n-1)了，
