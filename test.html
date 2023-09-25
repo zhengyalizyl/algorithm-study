@@ -17,24 +17,16 @@
         return arr[l]
       }
       let mid= l+((r-l)>>1);
-      let left = f(arr,l,mid);
+      let left = f(arr,l,mid);//遇到不得返回的，先把参数之类的压入栈，知道遇到那一条发生返回为a，就把那一条的数据先弹出栈，那一条数据得到的值就是返回的数据的值，即为a
       console.log(left,l,mid,'------')
       let right =f(arr,mid+1,r);
       console.log('jjjj',mid+1,r)
+      console.log(left,right,'zuihoubijiao')
       return Math.max(left,right)
      }
 
-     getMax([5,1,2,6])
+     getMax([5,6,7,2])
    </script>
 </body>
 </html>
 
-
-
-function f(n){
-   if(n==1){
-    return n
-   }
-  return f(n)+f(n-1)
-}
-//比如n=2;当代码执行到f(n)+f(n-1)这行是，先执行f(n)，就直接不回执行f(n-1)了，

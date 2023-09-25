@@ -48,6 +48,35 @@ function mergeSort2(arr){
  }
 
 
+ function mergeSort3(arr){
+  if(arr===null||arr.length<2){
+    return
+  }
+   let step=1;
+   let n=arr.length;
+   while(step<n){
+    let l=0;
+     while(l<n){
+      let m=l+step-1;
+      if(m>=n){
+        break;
+      }
+
+    let r=Math.min(m+step,n-1);
+      merge(arr,l,m,r)
+      l=r+1;
+     }
+
+    //  step*=2;//这里可能溢出
+    if(step>Math.floor((n/2))){ //这里保证了不会被溢出
+      break;
+    }else{
+      step*=2;
+    }
+
+   }
+ }
+
 
  function merge(arr,l,m,r){
   let help= new Array(r-l+1).fill(0)

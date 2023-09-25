@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Page Title</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+   <script>
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+ var countSmaller = function(nums) {
+  let arr=nums;
+    if(!arr||arr.length<2){
+    return [0]
+  }
+   
+   let ans={};
+    for(let i=0;i<arr.length;i+=1){
+       ans[arr[i]] =0
+    }
+    console.log(ans,'ans')
+   const a= process(arr,0,arr.length-1,ans);
+   console.log(a)
+};
+
+function process(arr,l,r,ans){
+  if(l===r){
+      return 0
+  }
+  let mid =l+((r-l)>>1)
+   process(arr,l,mid,ans);
+   process(arr,mid+1,r,ans);
+  return merge(arr,l,mid,r,ans);;
+}
+
+
+//14689 112334
+function merge(arr,l,m,r,ans){
+  //[l..m] [m+1...r]
+   // 目前囊括进来的数，是从[m+1,j) 
+   let j=m+1;
+   for(let i=l;i<=m;i+=1){
+     while(j<=r&&(arr[i]>(arr[j]))){
+          j++;
+     }
+     console.log(j,m,arr[i],ans[i],'jjjj')
+       ans[arr[i]]+=j-m-1;
+       console.log('return ',ans[i],ans)
+   }
+   let help =Array.from(r-l+1).fill(0);
+   let p1=l;
+   let p2=m+1;
+   let k=0;
+   while(p1<=m&&p2<=r){
+    if(arr[p1]<=arr[p2]){
+      help[k++] =arr[p1++];
+    }else{
+       help[k++] =arr[p2++];
+    }
+   }
+
+   while(p1<=m){
+    help[k++] =arr[p1++];
+   }
+
+   while(p2<=r){
+    help[k++] =arr[p2++];
+   }
+
+   for(i=0;i<help.length;i+=1){
+    arr[l+i]=help[i];
+  }
+
+  return ans;
+
+}
+
+countSmaller([2,0,1])
+
+   </script>
+</body>
+</html>
+
