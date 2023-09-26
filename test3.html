@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Page Title</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+   <script>
+ //[2，1，4，5，3]  k=2
+// min =2
+function sortedArrDistancelessk(arr,k){
+  if(k==0){
+    return 
+  }
+
+  let  n=arr.length;
+  let min=Math.min(n,k);
+  let i=0;
+   let j=0;
+   let ans=[];
+   while(i<min){
+       ans.push(arr[i++])
+   }
+   ans=ans.sort((a,b)=>a-b);//i-min(k,n)的排序，最小值在i上,
+  //  这里ans=[1，2]
+    //这里是一个个放进去排序
+   for(;i<n;i++,j++){
+      ans.push(arr[i]);
+      ans=ans.sort((a,b)=>a-b);//i-min(k,n)的排序，最小值在i上
+      arr[j] =ans.shift();//这里没有必要？
+   }
+  // 最后如果还有元素，则依次取出放回原数组
+   while(ans.length>0){
+    arr[j++] =ans.shift();
+   }
+}
+
+let arr=[2,1,4,5,3];
+let arr1=[3,4,1,2,5]
+sortedArrDistancelessk(arr1,2);
+console.log(arr,'arr')
+   </script>
+</body>
+</html>
+

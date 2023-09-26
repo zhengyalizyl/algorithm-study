@@ -37,10 +37,10 @@ function quickSort(arr){
 
 function process(arr,l,r){
     if(l>=r){
-     return
+     return 
     }
     //l<r
-    let equalE =partition(arr,l,r);
+    let equalE =partition(arr,l,r);//得到的是[lessR+1,moreL]
     //equalE[0]等于区域的第一个数
     //equalE[1]等于区域的最后一个数
     process(arr,l,equalE[0]-1);
