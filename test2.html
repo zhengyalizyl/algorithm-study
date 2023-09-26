@@ -12,51 +12,54 @@
  * @param {number[]} nums
  * @return {number[]}
  */
- var countSmaller = function(nums) {
+//方式一：正常的排序
+var countSmaller = function(nums) {
   let arr=nums;
     if(!arr||arr.length<2){
     return [0]
   }
-   
-   let ans={};
+   let ans=[];
     for(let i=0;i<arr.length;i+=1){
-       ans[arr[i]] =0
+       ans[i]={
+          value:arr[i],
+          index:i,
+          count:0
+       }
     }
-    console.log(ans,'ans')
-   const a= process(arr,0,arr.length-1,ans);
-   console.log(a)
+   process(ans,0,ans.length-1);
+   let res = [];
+    for (let i = 0; i < ans.length; i++) {
+        res[ans[i].index] = ans[i].count; 
+    }
+    return res;
 };
 
-function process(arr,l,r,ans){
-  if(l===r){
-      return 0
-  }
+function process(arr,l,r){
+  if(l===r) return ;
   let mid =l+((r-l)>>1)
-   process(arr,l,mid,ans);
-   process(arr,mid+1,r,ans);
-  return merge(arr,l,mid,r,ans);;
+  process(arr,l,mid);//
+  process(arr,mid+1,r);
+  merge(arr,l,mid,r);
 }
 
-
 //14689 112334
-function merge(arr,l,m,r,ans){
+function merge(arr,l,m,r){
   //[l..m] [m+1...r]
    // 目前囊括进来的数，是从[m+1,j) 
    let j=m+1;
    for(let i=l;i<=m;i+=1){
-     while(j<=r&&(arr[i]>(arr[j]))){
-          j++;
+     while(j<=r&&(arr[i].value>(arr[j].value))){
+          j++;//因为这里加了一个
      }
-     console.log(j,m,arr[i],ans[i],'jjjj')
-       ans[arr[i]]+=j-m-1;
-       console.log('return ',ans[i],ans)
+       arr[i].count+=(j-m-1);
    }
-   let help =Array.from(r-l+1).fill(0);
+  
+   let help =[];
    let p1=l;
    let p2=m+1;
    let k=0;
    while(p1<=m&&p2<=r){
-    if(arr[p1]<=arr[p2]){
+    if(arr[p1].value<=arr[p2].value){
       help[k++] =arr[p1++];
     }else{
        help[k++] =arr[p2++];
@@ -67,19 +70,14 @@ function merge(arr,l,m,r,ans){
     help[k++] =arr[p1++];
    }
 
-   while(p2<=r){
+  while(p2<=r){
     help[k++] =arr[p2++];
-   }
+  }
 
    for(i=0;i<help.length;i+=1){
     arr[l+i]=help[i];
   }
-
-  return ans;
-
 }
-
-countSmaller([2,0,1])
 
    </script>
 </body>

@@ -128,7 +128,7 @@ var reversePairs = function(record) {
  function merge(arr,l,m,r){
    //[l..m] [m+1...r]
       let res=0;
-    // 目前囊括进来的数，是从[m+1,j) 
+    // 目前囊括进来的数，是从[m+1,j)
     let j=m+1;
     for(let i=l;i<=m;i+=1){
       while(j<=r&&(arr[i]>(arr[j]))){
