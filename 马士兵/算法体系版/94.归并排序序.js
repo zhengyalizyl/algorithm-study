@@ -71,6 +71,7 @@ function mergeSort(arr,l,m,r,lower,upper){
  let windowR=l;
    //因为是排好序的，所以上限和下限不回退
   //因为窗口不回退，所以for循环只有一层
+  //因为里面遍历的时候已经算了
  for(let i=m+1;i<=r;i+=1){
      let min=arr[i]-upper;//这里进行了区间范围的转化
      let max= arr[i]-lower;
