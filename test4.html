@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Page Title</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+   <script>
+// [[2,3],[1,7],[4,6]，[4,5]]
+function maxCover2(lines) {
+  let min = Number.MAX_VALUE;
+  let max = Number.MIN_VALUE;
+  for (let i = 0; i < lines.length; i++) {
+    min = Math.min(min, lines[i][0]);//以免超出安全范围
+    max = Math.max(max, lines[i][1]);
+  }
+  console.log(min,max)
+  //min=0;max=7;
+  let cover = 0;
+  for (let p = min + 0.5; p < max; p += 1) {
+    let cur = 0;
+    for (let i = 0; i < lines.length; i++) {
+      if (lines[i][0] < p && lines[i][1] > p) { //因为要保证在这个p的区间范围
+        cur++;
+      }
+    }
+    cover = Math.max(cover, cur);
+  }
+  return cover;
+}
+
+function maxCover(){
+  return 1
+}
+
+console.log(maxCover2([[2,3],[1,7],[4,6],[4,5]]))
+
+   </script>
+</body>
+</html>
+

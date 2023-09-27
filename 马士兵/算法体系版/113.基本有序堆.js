@@ -25,7 +25,7 @@ function sortedArrDistancelessk(arr,k){
    for(;i<n;i++,j++){
       ans.push(arr[i]);
       ans=ans.sort((a,b)=>a-b);//i-min(k,n)的排序，最小值在i上
-      arr[j] =ans.shift();
+      arr[j] =ans.shift();//这里没有必要去
    }
   // 最后如果还有元素，则依次取出放回原数组
    while(ans.length>0){
