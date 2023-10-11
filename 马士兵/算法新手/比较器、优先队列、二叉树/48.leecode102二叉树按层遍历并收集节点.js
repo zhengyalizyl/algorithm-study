@@ -33,3 +33,31 @@ var levelOrder = function(root) {
   order(root, ans, k);
   return ans
 };
+
+
+var levelOrder =function(root){
+  if(!root){return []};
+  let queue =[root];
+   let result =[];
+
+    //开始循环
+    while(queue.length){
+      let tmpQueue =[];
+      let tmpResult =[];
+      let len =queue.length;
+      for(let i=0;i<len;i+=1){
+        let node =queue.shift();
+        tmpResult.push(node.val);
+        node.left &&tmpQueue.push(node.left);
+        node.right && tmpQueue.push(node.right)
+      }
+
+      //循环完毕后
+      result.push(tmpResult);
+      tmpResult=[];
+      queue = tmpQueue;
+    }
+    return result
+}
+
+
