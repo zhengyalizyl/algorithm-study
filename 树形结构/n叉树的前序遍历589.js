@@ -13,17 +13,17 @@
  * @return {number[]}
  */
 
-var order = function(root, ans) {
+var order = function (root, ans) {
     if (!root) { return [] }
     ans.push(root.val)
-        //先遍历根，再遍历左边，最后遍历右边
+    //先遍历根，再遍历左边，最后遍历右边
     for (let i in root.children) {
         order(root.children[i], ans)
     }
     return ans
 }
 
-var preorder = function(root) {
+var preorder = function (root) {
     let ans = [];
     ans = order(root, ans);
     return ans
