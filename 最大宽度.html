@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Page Title</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+   <script>
+var widthOfBinaryTree = function(root) {
+    if(root==null){
+    return 0
+  }
+  let queue=[];
+  queue.push(root);
+  let curEnd=root;//记录当前层的最右节点
+  let nextEnd =null;// 记录下一层的最右节点
+  let max=0;
+  let curNums =0;
+
+  let poList=[];//能走到这里说明有根节点
+  let pos=0;
+  let result =[]
+  while(queue.length>0){
+    let temp=[];   
+    let tmpQueue =[];
+      let tmpResult =[];
+    let len =queue.length;
+  for(i=0;i<len;i+=1){
+   let node =queue.shift();
+    tmpResult.push(node.val);
+    temp.push(pos)
+    if(node.left!=null){
+      tmpQueue.push(node.left);
+      nextEnd =node.left;
+      pos=2*pos;
+    }
+
+    if(node.right!=null){
+      tmpQueue.push(node.right);
+       nextEnd=node.right;
+       pos=2*pos+1;
+    }
+    curNums+=1;
+    if(node==curEnd){
+      max=Math.max(max,curNums);
+      curNums=0;//需要把当前的节点个数清空掉
+      curEnd=nextEnd;
+      // nextEnd =null;
+    }
+  }
+       //循环完毕后
+    result.push(tmpResult);
+    tmpResult=[];
+    poList.push(temp);
+    temp=[];
+    queue = tmpQueue;
+ 
+  }
+    console.log(result,poList,'result')
+  return max;
+}
+
+   </script>
+</body>
+</html>
+

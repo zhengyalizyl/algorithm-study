@@ -35,4 +35,37 @@ function getHeight(root){
 
 
 
+// 方法二：基于递归套路
+// 【思路分析】针对任意一棵子树X，判断是否平衡二叉树，需要从左右子树收集以下信息：
+
+// ① 是否平衡二叉树——首先，左右子树需要保证是平衡的
+// ② 树高——其次，左右子树树高差绝对值小于等于1
+
+function isBalancedByDef(root) {
+  if (root == null) {
+    return true;
+  }
+  return process(root).is
+}
+
+function process(root) {
+  if (root == null) {
+    return {
+      is: true,
+      height: 0
+    }
+  }
+  let leftInfo = process(root.left);
+  let rightInfo = process(root.right);
+
+  let is = leftInfo.is && rightInfo.is && Math.abs((leftInfo.height - rightInfo.height)) <= 1;
+  let height = Math.max(leftInfo.height, rightInfo.height) + 1;
+  return {
+    is,
+    height,
+  }
+}
+
+
+
 
