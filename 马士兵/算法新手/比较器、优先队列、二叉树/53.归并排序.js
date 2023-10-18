@@ -1,4 +1,4 @@
-function mergeSort1(arr,l,m,r){
+function mergeSort1(arr){
     if(arr===null||arr.length<2){
       return
     }
