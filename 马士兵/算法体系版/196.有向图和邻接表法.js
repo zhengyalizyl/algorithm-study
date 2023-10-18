@@ -31,7 +31,7 @@ class Graph{
    nodes;//顶点集合
    edges;// 边集合
    constructor() {
-     this.nodes ={};
+     this.nodes =new Map();
      this.edges=new Set();;
    }
 }
@@ -50,15 +50,15 @@ function createGraph(matrix){
      let weight =matrix[i][0];
      let from =matrix[i][1];
      let to=matrix[i][2];
-     if(!graph.nodes[from]){
-      graph.nodes[from]=new Node(from);
+     if(!graph.nodes.has[from]){
+      graph.nodes.set([from],new Node(from));
      }
-     if(!graph.nodes[to]){
-      graph.nodes[to]=new Node(to);
+     if(!graph.nodes.has[to]){
+      graph.nodes([to],new Node(to));
      }
 
-     let fromNode =graph.nodes[from];
-     let toNode=graph.nodes[to];
+     let fromNode =graph.nodes.get([from]);
+     let toNode=graph.nodes.get([to]);
      let newEdge=new Edge(weight,fromNode,toNode);
      fromNode.nexts.push(toNode);
      fromNode.out++;

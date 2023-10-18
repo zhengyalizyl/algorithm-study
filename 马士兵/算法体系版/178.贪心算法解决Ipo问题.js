@@ -37,6 +37,7 @@ function findMaximizedCapital(k, w, profits, capital) {
   for (let i = 0; i < k; i += 1) {
     // 将所有能做的项目弹出，放入profitsQueue
     while (!capitalArr.length > 0 && capitalArr[0][1] <= w) {
+      //因为shift的复杂度是o(n)
       profitsQueue.push(capitalArr.shift());
       // 利润定义大根堆
       profitsQueue.sort((a, b) => b[0] - a[0]);//因为这里会导致时间过长
@@ -50,5 +51,5 @@ function findMaximizedCapital(k, w, profits, capital) {
     w += profitsQueue.shift()[0];
   }
 
-  return  w
+  return w
 }
