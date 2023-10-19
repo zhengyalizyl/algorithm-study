@@ -1,13 +1,13 @@
 //定义定点
 class Node{
-   val;//顶点的值
+   value;//顶点的值
    in;//入度
    out;//出度
    nexts;// 从当前节点出发的所有邻居节点集合
    edges; // 从当前节点出发的所有边的集合
 
    constructor(val){
-    this.val=val;
+    this.value=val;
     this.in=0;
     this.out=0;
     this.nexts=[];
