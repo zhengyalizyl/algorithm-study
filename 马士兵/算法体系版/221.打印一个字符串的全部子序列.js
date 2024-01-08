@@ -10,9 +10,11 @@ function process(str, index, ans, path) {
     return
   }
 
+  //没有要index位置的字符
   let no = path;
   process(str, index + 1, ans, no);
   let yes = path + str[index];
+  //要了index位置的字符
   process(str, index + 1, ans, yes)
 }
 
@@ -20,6 +22,11 @@ function process(str, index, ans, path) {
 function subs(s) {
   let str = s.split('');
   let ans = [];
+  let path="";
   process(str, 0, ans, path);
   return ans;
 }
+
+
+//1，2，3，4，5，6
+//子序列：1，2或者1，2，3或者1，3，4，5

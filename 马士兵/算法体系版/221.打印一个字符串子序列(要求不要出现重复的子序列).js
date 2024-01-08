@@ -10,9 +10,11 @@ function process(str, index, ans, path) {
     return
   }
 
+  //没有要index位置上的字符
   let no = path;
   process(str, index + 1, ans, no);
   let yes = path + str[index];
+  //要index位置上的字符
   process(str, index + 1, ans, yes)
 }
 
@@ -20,6 +22,7 @@ function process(str, index, ans, path) {
 function subs(s) {
   let str = s.split('');
   let ans = new Set();//这里去掉重复的
+  let path="";
   process(str, 0, ans, path);
   return ans;
 }
