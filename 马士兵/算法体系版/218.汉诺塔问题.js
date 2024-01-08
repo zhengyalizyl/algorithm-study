@@ -62,7 +62,7 @@ function rightToLeft(n) {
 }
 
 
-//方法二：递归 z^n-1
+//方法二：递归 2^n-1
 function hanoi(n) {
   if (n <= 0) return;
   func(n, "left", "right", "mid");
@@ -74,9 +74,9 @@ function func(n, from, to, other) {
     console.log("Move 1 from " + from + " to " + to);
   }
   else {
-    func(n - 1, from, other, to);
+    func(n - 1, from, other, to);//这里是指from到other，to是另外一个
     console.log("Move " + n + " from " + from + " to " + to);
-    func(n - 1, other, to, from);
+    func(n - 1, other, to, from);//这里是从other到to，from是另外一个
   }
 }
 
@@ -111,15 +111,14 @@ var hanota = function (A, B, C) {
 // 1~n 在: from，去: to，另一个other 
 function func(n, from, to, other) {
   if (n == 1) {
-    // base 
+    // base case
     console.log("Move 1 from " + from + " to " + to);
     to.push(from.pop())
-  }
-  else {
-    func(n - 1, from, other, to);
+  }else {
+    func(n - 1, from, other, to);//这里是指from到other，to是另外一个
     console.log("Move " + n + " from " + from + " to " + to);
     to.push(from.pop())
-    func(n - 1, other, to, from);
+    func(n - 1, other, to, from);//这里是从other到to，from是另外一个
   }
 }
 
