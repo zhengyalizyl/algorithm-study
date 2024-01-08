@@ -15,7 +15,7 @@ function  g(str,index,ans){
      //比如acbc，c就不要和c交换了
      for(let i=index;i<str.length;i+=1){
        if(!visited[str[i]]){ //曾经试过了就不需要交换了
-        visited[str[i]] =true;
+        visited[str[i]] =true;//这里剪枝笔最后一步过滤好
         swap(str,index,i);
         g(str,index+1,ans);//恢复现场
         swap(str,index,i)

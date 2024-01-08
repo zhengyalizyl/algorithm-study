@@ -9,11 +9,11 @@ function reverse(stack){
 // 返回移除掉的栈底元素
 //1,2,3 ->跑完之后12，返回3
 function process(stack){
-    let val=stack.shift();
+    let res=stack.shift();
     if(stack.length==0){
-      return val
+      return res
     }
-    let next =process(stack);
-    stack.push(val);
-    return next;
+    let last =process(stack);
+    stack.push(res);
+    return last;
 }
