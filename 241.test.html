@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Page Title</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+   <script>
+/**
+ * @param {string[]} stickers
+ * @param {string} target
+ * @return {number}
+ */
+ var minStickers = function(stickers, target) {
+  let ans=process(stickers,target);
+  return ans==Number.MAX_VALUE?-1:ans;
+};
+
+//所有贴纸stickers，每一种贴纸都有无穷张
+//target
+//最少张数
+function process(stickers,target){
+  if(target.length===0){
+    return 0;
+  }
+
+  let min=Number.MAX_VALUE;
+  for(let first of stickers){
+    let rest =minus(target,first);
+    if(rest.length!=target.length){
+      min=Math.min(min,process(stickers,rest))
+    }
+  }
+  return min+(min===Number.MAX_VALUE?0:1);//没有算第一张的数
+}
+
+function minus(s1,s2){
+  const str1=s1.split('');
+  const str2=s2.split('');
+  let count=[];//长度为26
+  for(let i=0;i<26;i+=1){
+    count[i]=0;
+  }
+  for(let cha of str1){
+    count[cha.charCodeAt()-'a'.charCodeAt()]++;
+  }
+  for(let cha of str2){
+     count[cha.charCodeAt()-'a'.charCodeAt()]--;
+  }
+
+  let builder='';
+  for(let i=0;i<26;i+=1){
+    if(count[i]>0){
+      for(let j=0;j<count[i];j+=1){
+        builder+=String.fromCharCode(i+97);
+      }
+    }
+  }
+ return builder;
+}
+
+const stickers =["with","example","science"];
+const target="thehat";
+const a=minStickers(stickers,target);
+console.log(a)
+
+   </script>
+</body>
+</html>
+
