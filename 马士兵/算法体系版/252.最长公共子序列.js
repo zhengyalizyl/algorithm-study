@@ -34,3 +34,85 @@ a) 中 s1 的范围 小于 b) 中 s1 的范围，a) 中 s2 的范围 等于 b)�
  * 
  * 
  */
+// https://leetcode.cn/problems/qJnOS7/
+
+//方法一：暴力递归
+function longestCommonSubsequence1(s1, s2) {
+  if (s1 == null || s2 == null || s1.length === 0 || s2.length == 0) {
+    return 0
+  }
+
+  const str1 = s1.split('');
+  const str2 = s2.split('');
+  return process1(str1, str2, str1.length - 1, str2.length - 1);
+}
+
+//str1[0...i]与str2[0.。j]最长公共序列多长？
+function process1(str1, str2, i, j) {
+  if (i == 0 && j == 0) {
+    return str1[i] = str2[j] ? 1 : 0;
+  } else if (i == 0) {
+    if (str2[j] == str1[i]) {
+      return 1
+    } else {
+      return process1(str1, str2, i, j - 1);
+    }
+  } else if (j == 0) {
+    if (str2[j] == str1[i]) {
+      return 1
+    } else {
+      return process1(str1, str2, i - 1, j);
+    }
+  } else {//i!=0&&j!=0
+          //xi vj
+    let p1 = process1(str1, str2, i - 1, j);
+    //vi xj 
+    let p2 = process1(str1, str2, i, j - 1);
+    //
+    let p3 = str1[i] == str2[j] ? 1 + process1(str1, str2, i - 1, j - 1) : 0;
+    return Math.max(p1, p2, p3)
+  }
+}
+
+
+//方法二：动态规划（以结尾位置组织可能性）样本对应模型
+function longestCommonSubsequence2(s1, s2) {
+  if (s1 == null || s2 == null || s1.length === 0 || s2.length == 0) {
+    return 0
+  }
+
+  const str1 = s1.split('');
+  const str2 = s2.split('');
+  let n=str1.length;
+  let m=str2.length;
+  let arr=[];
+  for(let i=0;i<n;i+=1){
+    arr[i] =[];
+    for(let j=0;j<m;j+=1){
+      arr[i][j]=0;
+    }
+  }
+
+
+  arr[0][0]=str1[0]==str2[0]?1:0;
+  for(let j=1;j<m;j+=1){
+    arr[0][j]=str1[0]==str2[j]?1:arr[0][j-1];
+  }
+
+  for(let i=1;i<n;i+=1){
+     arr[i][0]=str1[i]==str2[0]?1:arr[i-1][0];
+  }
+
+  for(let i=1;i<n;i+=1){
+    for(let j=1;j<m;j+=1){
+
+       let p1=arr[i-1][j];
+       let p2=arr[i][j-1];
+       let p3=str1[i]==str2[j]?1+arr[i-1][j-1]:0;
+       arr[i][j]=Math.max(p1,p2,p3);
+    }
+  }
+
+  return arr[n-1][m-1];//  由 process1(str1, str2, str1.length - 1, str2.length - 1);决定的
+
+}

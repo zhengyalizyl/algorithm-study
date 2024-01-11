@@ -55,6 +55,6 @@ function f(s) {
     }
   }
 
- return  arr[0]
+ return  arr[0];//由这个return process(str.split(''), 0)决定的
 
 }
