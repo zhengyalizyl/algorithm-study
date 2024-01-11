@@ -64,6 +64,36 @@ function bestTime(drinks, wash, air, index, free) {
 //方法二：由于free无法知道其范围，须得人为想办法,冲到最大的计算，需要根据业务来判断
 //哪些范围可以不需要
 //实在知道不能避免范围，可以用缓存去做new Map
+class Machine {
+  timePoint; // 可用时间点
+  workTime; // 泡咖啡时间 
+  constructor(t, w) {
+    timePoint = t;
+    workTime = w;
+  }
+}
+
+
+function minTime2(arr, n, a, b) {
+  let queue = [];//最小堆处理
+
+  for (let value in arr) {
+    queue.push(new Machine(0, value));// 0时间点都可用
+    queue.sort((a, b) => (a.timePoint + a.workTime) - (b.timePoint + b.workTime));
+  }
+
+  //每个人喝完咖啡的最优时间
+  let drinks = new Array(n).fill(0);
+  for (let i = 0; i < n; i += 1) {
+    let cur = queue.unshift();
+    cur.timePoint += cur.workTime;
+    drinks[i] = cur.timePoint
+    queue.push(cur);
+    queue.sort((a, b) => (a.timePoint + a.workTime) - (b.timePoint + b.workTime));
+  }
+  return bestTimeDp(drinks, a, b)
+}
+
 function bestTimeDp(drinks, wash, air) {
   let n = drinks.length
   let maxFree = 0;
