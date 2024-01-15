@@ -11,8 +11,8 @@ class Machine {
   timePoint; // 可用时间点
   workTime; // 泡咖啡时间 
   constructor(t, w) {
-    timePoint = t;
-    workTime = w;
+    this.timePoint = t;
+    this.workTime = w;
   }
 }
 
@@ -68,8 +68,8 @@ class Machine {
   timePoint; // 可用时间点
   workTime; // 泡咖啡时间 
   constructor(t, w) {
-    timePoint = t;
-    workTime = w;
+    this.timePoint = t;
+    this.workTime = w;
   }
 }
 

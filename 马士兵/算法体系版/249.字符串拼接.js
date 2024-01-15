@@ -152,6 +152,7 @@ function minStickers3(stickers, target) {
 //所有贴纸stickers，每一种贴纸都有无穷张
 //target
 //最少张数
+
 function process3(stickers, t,map) {
   if(map.has(t)){
     return map.get(t);

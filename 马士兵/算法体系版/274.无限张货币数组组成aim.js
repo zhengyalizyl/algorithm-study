@@ -26,30 +26,56 @@ function process(arr, index, rest) {
 
 
 
-//方法二：
+//方法二：动态规划
 function coinWays2(arr, aim) {
   if (arr == null || arr.length == 0 || aim < 0) {
     return 0;
   }
 
   let n = arr.length;
-  let arr = new Array(n + 1);
+  let dp = new Array(n + 1);
   for (let i = 0; i < n + 1; i += 1) {
     arr[i] = new Array(aim + 1).fill(0)
   }
 
-  arr[n][0] = 1;
+  dp[n][0] = 1;
   for (let index = n - 1; index >= 0; index -= 1) {//process(arr,index+1,rest)+process(arr,index+1,rest-arr[index]),因为第n行的值知道，且依赖于index+1
     for (let rest = 0; rest <= aim; rest += 1) {
       let ways = 0;
       for (let i = 0; i * arr[index] <= rest; i += 1) {
-        ways += arr[index + 1][rest - (i * arr[index])];//这里保证了rest>=0
+        ways += dp[index + 1][rest - (i * arr[index])];//这里保证了rest>=0
       }
-      arr[index][rest] = ways;
+      dp[index][rest] = ways;
     }
 
   }
 
-  return arr[0][aim]
+  return dp[0][aim]
+
+}
+//方法三：优化动态规划
+function coinWays3(arr, aim) {
+  if (arr == null || arr.length == 0 || aim < 0) {
+    return 0;
+  }
+
+  let n = arr.length;
+  let dp= new Array(n + 1);
+  for (let i = 0; i < n + 1; i += 1) {
+    dp[i] = new Array(aim + 1).fill(0)
+  }
+
+  dp[n][0] = 1;
+  for (let index = n - 1; index >= 0; index -= 1) {//process(arr,index+1,rest)+process(arr,index+1,rest-arr[index]),因为第n行的值知道，且依赖于index+1
+    for (let rest = 0; rest <= aim; rest += 1) {
+      dp[index][rest] =dp[index+1][rest];
+      if(rest-arr[index]>=0){
+        dp[index][rest]+=dp[index][rest-arr[index]];
+      }
+    }
+
+  }
+
+  return dp[0][aim]
 
 }
