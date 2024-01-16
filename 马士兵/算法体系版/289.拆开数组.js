@@ -44,7 +44,7 @@ function right2(arr) {
     sum += num;
   }
 
-  sum /= 2;
+  sum =parseInt(sum/2);
   let dp = new Array(n + 1);//因为下标是0-n,所以格子是n+1
   for (let i = 0; i < n + 1; i += 1) {
     dp[i] = new Array(sum + 1).fill(0)

@@ -34,7 +34,7 @@ function process1(pre, rest) {
 
   //pre<rest
   let ways = 0;
-  for (let first = pre; first <= rest; first += 1) {
+  for (let first = pre; first <= rest; first += 1) {//因为这里有for循环，所以可以斜率优化
     ways += process(first, rest - first)
   }
 
