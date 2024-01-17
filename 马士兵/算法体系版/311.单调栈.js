@@ -6,6 +6,7 @@
 //  3:[2,-1]
 // ]
 //无重复的时候
+// 方法一：arr数组中无重复值
 function getNearLessNoRepeat(arr) {
   let n = arr.length;
   let res = new Array(n);
@@ -40,6 +41,7 @@ function getNearLessNoRepeat(arr) {
 
 
 //重复的值的时候
+// 方法二：arr数组中有重复值
 function getNearLess(arr) {
   let n = arr.length;
   let res = new Array(n);
