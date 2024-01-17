@@ -32,5 +32,25 @@ function goodGas(gas,cost){
 
  //实现一个双端队列，维护arr数组最小值位置
  let qmin=[];
- //初始化窗口长度
+ //初始化窗口长度n 范围内qmin
+ for(let i=0;i<n;i+=1){
+  while(!qmin.length&&arr[qmin[qmin.length-1]]>=arr[i]){
+     qmin.push(i)
+  }
+ }
+
+  let ans =new Array(n).fill(false);
+  for(let offset=0,i=0,j=n;j<m;offset=arr[i++]){
+    if(arr[qmin[0]]-offset>=0){ //就是每次减前一个释放的那个数，如果大于等于0，就说明可以往前走
+      ans[i]=true;
+    }
+    if(qmin[0]==i){
+      qmin.unshift();
+    }
+    while(!qmin.length&&arr[qmin[qmin.length-1]]>=arr[j]){
+       qmin.pop();
+    }
+    qmin.push(j)
+  }
+  return ans;
 }
