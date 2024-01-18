@@ -12,14 +12,14 @@ function largestRectangleArea(heights) {
   for (let i = 0; i < heights.length; i++) {
     while (stack.length && heights[stack[stack.length-1]] >= heights[i]) {
       let j = stack.pop();
-      let left = stack.length ? -1 : stack[0];
+      let left = !stack.length ? -1 : stack[stack.length-1];
       maxArea = Math.max(maxArea, heights[j] * (i - 1 - left));
     }
     stack.push(i);
   }
   while (stack.length) {
     let j = stack.pop()
-    let left = stack.length ? -1 : stack[stack.length-1];
+    let left = !stack.length ? -1 : stack[stack.length-1];
     maxArea = Math.max(maxArea, heights[j] * (heights.length - 1 - left));
   }
   return maxArea;

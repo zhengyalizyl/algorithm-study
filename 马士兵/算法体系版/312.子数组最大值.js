@@ -45,7 +45,7 @@ function maxIndicator2(arr){
 
     while(stack.length){
       let j=stack.pop();
-       max=Math.max(max,(!stack.length?sums[n-1]:(sums[i-1]-sums[stack[stack.length-1]]))*arr[j])
+       max=Math.max(max,(!stack.length?sums[n-1]:(sums[n-1]-sums[stack[stack.length-1]]))*arr[j])
     }
     return max;
 }
