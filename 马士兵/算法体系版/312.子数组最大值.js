@@ -36,16 +36,16 @@ function maxIndicator2(arr){
     for(let i=0;i<n;i+=1){
       //arr[stack[0]]==arr[i]是算错的，但是后面还是会算正确
       // >=: 可能存在重复值，会导致计算错误，但是最后一个相等值会计算正确
-      while(!stack.length&&arr[stack[0]]>=arr[i]){
+      while(stack.length&&arr[stack[stack.length-1]]>=arr[i]){
         let j=stack.pop();
-        max=Math.max(max,(stack.length?sums[i-1]:(sums[i-1]-sums[stack[0]]))*arr[j])
+        max=Math.max(max,(!stack.length?sums[i-1]:(sums[i-1]-sums[stack[stack.length-1]]))*arr[j])
       }
       stack.push(i)
     }
 
-    while(!stack.length){
+    while(stack.length){
       let j=stack.pop();
-       max=Math.max(max,(stack.length?sums[n-1]:(sums[i-1]-sums[stack[0]]))*arr[j])
+       max=Math.max(max,(!stack.length?sums[n-1]:(sums[i-1]-sums[stack[stack.length-1]]))*arr[j])
     }
     return max;
 }

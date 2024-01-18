@@ -17,7 +17,7 @@
   let height =new Array(map[0].length)
    for(let i=0;i<map.length;i+=1 ){
      for(let j=0;j<map[0].length;j+=1){
-       height[j] =map[i][j]=='0'?0:Number(height[j])+1
+       height[j] =map[i][j]=='0'?0:Number(height[j]||0)+1
      }
      maxArea=Math.max(maxRecFromBottom(height),maxArea);
    }
@@ -31,16 +31,41 @@
   let maxArea = 0;
   let stack = [];
   for (let i = 0; i < heights.length; i++) {
-    while (!stack.length && heights[stack[0]] >= heights[i]) {
+    while (stack.length && heights[stack[stack.length-1]] >= heights[i]) {
       let j = stack.pop();
-      let left = stack.length ? -1 : stack[0];
+      let left = !stack.length ? -1 : stack[stack.length-1];
       maxArea = Math.max(maxArea, heights[j] * (i - 1 - left));
     }
     stack.push(i);
   }
-  while (!stack.length) {
+  while (stack.length) {
     let j = stack.pop()
-    let left = stack.length ? -1 : stack[0];
+    let left = !stack.length ? -1 : stack[stack.length-1];
+    maxArea = Math.max(maxArea, heights[j] * (heights.length - 1 - left));
+  }
+  return maxArea;
+ }
+
+
+ //改成数组方式
+ function maxRecFromBottom(heights){
+  if (heights == null || heights.length == 0) return 0;
+  let maxArea = 0;
+  let n=heights.length;
+  let stack = new Array(n);
+  let si=-1;
+  for (let i = 0; i < n; i++) {
+      //si==-1说明栈是空的
+    while (si!=-1 && heights[stack[si]] >= heights[i]) {
+      let j = stack[si--];
+      let left = si==-1 ? -1 : stack[si];
+      maxArea = Math.max(maxArea, heights[j] * (i - 1 - left));
+    }
+    stack[++si]=i;
+  }
+  while (si!=-1) {
+    let j = stack[si--]
+    let left = si==-1 ? -1 : stack[si];
     maxArea = Math.max(maxArea, heights[j] * (heights.length - 1 - left));
   }
   return maxArea;

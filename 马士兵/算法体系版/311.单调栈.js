@@ -19,9 +19,9 @@ function getNearLessNoRepeat(arr) {
   let stack = [];
   for (let i = 0; i < n; i += 1) {
     //当遍历到i位置的数,arr[i]
-    while (!stack.length && arr[stack[0]] > arr[i]) {
+    while (stack.length && arr[stack[stack.length-1]] > arr[i]) {
       let popIndex = stack.pop();
-      let leftLessIndex = stack.length ? -1 : stack[0];
+      let leftLessIndex = stack.length ? -1 : stack[stack.length-1];
       res[popIndex][0] = leftLessIndex;
       res[popIndex][1] = i;
     }
@@ -29,9 +29,9 @@ function getNearLessNoRepeat(arr) {
   }
 
   //假设栈里面还有东西
-  while (!stack.length) {
+  while (stack.length) {
     let popIndex = stack.pop();
-    let leftLessIndex = stack.length ? -1 : stack[0];
+    let leftLessIndex = stack.length ? -1 : stack[stack.length-1];
     res[popIndex][0] = leftLessIndex;
     res[popIndex][1] = -1;
   }
@@ -50,17 +50,17 @@ function getNearLess(arr) {
   }
   let stack = [];
   for (let i = 0; i < n; i += 1) {
-    while (!stack.length && arr[stack[0][0]] > arr[i]) {
+    while (stack.length && arr[stack[stack.length-1][0]] > arr[i]) {
       //弹出这个链表的结构
       let popIs = stack.pop();
-      let leftLessIndex = stack.length ? -1 : stack[0][stack[0].length - 1];
+      let leftLessIndex = !stack.length ? -1 : stack[stack.length-1][stack[stack.length-1].length - 1];
       for (let popi of popIs) {
         res[popi][0] = leftLessIndex;
         res[popi][1] = i;
       }
     }
 
-    if (!stack.length && arr[stack[0][0]] == arr[i]) {//这个相等
+    if (stack.length && arr[stack[stack.length-1][0]] == arr[i]) {//这个相等
       stack[0].push(i)
     } else {
       let list = [];
@@ -68,9 +68,9 @@ function getNearLess(arr) {
       stack.push(list)
     }
   }
-  while (!stack.length) {
+  while (stack.length>0) {
     let popIs = stack.pop();
-    let leftLessIndex = stack.length ? -1 : stack[0][stack[0].length - 1];
+    let leftLessIndex = stack.length ? -1 : stack[stack.length-1][stack[0].length - 1];
     for (let popi of popIs) {
       res[popi][0] = leftLessIndex;
       res[popi][1] = i;

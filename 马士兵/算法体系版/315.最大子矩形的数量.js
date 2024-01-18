@@ -38,6 +38,24 @@
 // 这就是任何一个数字从栈里弹出的时候，计算矩形数量的方式
  */
 
+
+function numsSubmat(map) {
+  if (map == null || map.length == 0 || map[0].length == 0) {
+    return 0
+  }
+  let ans = 0;
+  let height = new Array(map[0].length)
+  for (let i = 0; i < map.length; i += 1) {
+    for (let j = 0; j < map[0].length; j += 1) {
+      height[j] = map[i][j] == '0' ? 0 : Number(height[j] || 0) + 1
+    }
+    ans += countFromBottom(height)
+  }
+  return ans;
+
+}
+
+
 function countFromBottom(height) {
   if (height == null || height.length == 0) {
     return 0
@@ -46,10 +64,11 @@ function countFromBottom(height) {
   let nums = 0;
   let stack = [];
   for (let i = 0; i < height.length; i += 1) {
-    while (!stack.length && height[stack[0]] >= height[i]) {
+    while (stack.length && height[stack[stack.length - 1]] >= height[i]) {
       let cur = stack.pop();
+      // 考虑重复情况，必须严格大于是才结算，最后一个重复值会算对
       if (height[cur] > height[i]) {
-        let left = stack.length ? -1 : stack[i];
+        let left = !stack.length ? -1 : stack[stack.length - 1];
         let n = i - left - 1;
         let down = Math.max(left == -1 ? 0 : height[left], height[i]);
         nums += (height[cur] - down) * num(n)
@@ -58,15 +77,47 @@ function countFromBottom(height) {
     stack.push(i);
   }
 
-  while (!stack.length) {
+  while (stack.length) {
     let cur = stack.pop();
-    let left = stack.length ? -1 : stack[0];
+    let left = !stack.length ? -1 : stack[stack.length - 1];
     let n = height.length - left - 1;
     let down = left == -1 ? 0 : height[left];
     nums += (height[cur] - down) * num(n)
   }
   return nums;
 }
+
+function countFromBottom2(height) {
+  if (height == null || height.length == 0) {
+    return 0
+  }
+
+  let nums = 0;
+  let stack = [];
+  let si = -1;
+  for (let i = 0; i < height.length; i += 1) {
+    while (si != -1 && height[stack[si]] >= height[i]) {
+      let cur = stack[si--]
+      if (height[cur] > height[i]) {
+        let left = si == -1 ? -1 : stack[si];
+        let n = i - left - 1;
+        let down = Math.max(left == -1 ? 0 : height[left], height[i]);
+        nums += (height[cur] - down) * num(n)
+      }
+    }
+    stack[++si] = i;
+  }
+
+  while (si != -1) {
+    let cur = stack[si--]
+    let left = si == -1 ? -1 : stack[si];
+    let n = height.length - left - 1;
+    let down = left == -1 ? 0 : height[left];
+    nums += (height[cur] - down) * num(n)
+  }
+  return nums;
+}
+
 
 function num(n) {
   return parseInt((n * (n + 1) / 2));
