@@ -70,7 +70,9 @@ function countFromBottom(height) {
       if (height[cur] > height[i]) {
         let left = !stack.length ? -1 : stack[stack.length - 1];
         let n = i - left - 1;
+        //down =max(x-{y,z})中较大的
         let down = Math.max(left == -1 ? 0 : height[left], height[i]);
+        // down *(l(l+1)/2)
         nums += (height[cur] - down) * num(n)
       }
     }
