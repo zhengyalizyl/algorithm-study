@@ -30,11 +30,11 @@ function matrixPower(m, p) {
   }
 
   let tmp = m;
-  for (; p != 0; p >> 1) {//每次右移，有1就相乘，没有就不处理
-    if ((p & 1) != 0) {
+  for (; p != 0; p >> 1) {//每次右移，有1就相乘，没有就不处理，这个就是2分方式
+    if ((p & 1) != 0) { //按位考察需不需要这个
       res = muliMatrix(res, tmp)//矩阵的乘法
     }
-    tmp = muliMatrix(tmp, tmp)
+    tmp = muliMatrix(tmp, tmp)//自己跟自己相乘，变成1,2,4,8,16,...
   }
 
   return res;
