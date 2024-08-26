@@ -104,8 +104,8 @@ function build(preorder, prestart, preEnd, inorder, instart, inEnd) {
         return null
     }
     const rootVal = preorder[prestart];
-    const index = inorder.indexOf(preorder[prestart])
-    const leftTreeSize = index - instart;
+    const index = inorder.indexOf(rootVal)
+    const leftTreeSize = index - instart;//左子树节点的个数
     const leftTree = build(preorder, prestart + 1, prestart + leftTreeSize, inorder, instart, index - 1);
     const rightTree = build(preorder, prestart + leftTreeSize + 1, preEnd, inorder, index + 1, inEnd);
     const root = new TreeNode(rootVal, leftTree, rightTree);
